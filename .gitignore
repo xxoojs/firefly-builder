@@ -1,0 +1,15 @@
+# Node
+node_modules/
+
+# Test
+example/
+
+# Created by IDE
+.idea/
+*.iml
+.DS_Store
+.vscode
+*.sw*
+
+# Build
+dest
