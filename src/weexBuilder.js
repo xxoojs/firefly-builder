@@ -120,7 +120,8 @@ class WeexBuilder extends WebpackBuilder {
           mainFields: ['loader', 'main'],
           moduleExtensions: ['-loader'],
           alias: {
-            'vue-loader': require.resolve('../lib/vue-loader-master/lib')
+            'vue-loader': require.resolve('../lib/vue-loader-master/lib'),
+            'weex-loader': require.resolve('../loaders/weex-loader-master')
           }
         },
         /*

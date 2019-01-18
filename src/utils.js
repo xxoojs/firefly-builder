@@ -51,7 +51,8 @@ const cssLoaders = (options) => {
       loaders.push({
         loader: loadModulePath(loader + '-loader'),
         options: Object.assign({}, loaderOptions, {
-          sourceMap: !!options.sourceMap
+          sourceMap: !!options.sourceMap,
+          data: '$primary: #000000;'
         })
       });
     }
@@ -83,9 +84,24 @@ const exist = (path) => {
   return true;
 };
 
+const styleLoaders = function (options) {
+  const output = [];
+  const loaders = cssLoaders(options);
+  for (const extension in loaders) {
+    const loader = loaders[extension];
+    output.push({
+      test: new RegExp('\\.' + extension + '$'),
+      use: loader
+    });
+  }
+
+  return output;
+};
+
 module.exports = {
   resolveSizeUnit,
   loadModulePath,
   cssLoaders,
-  exist
+  exist,
+  styleLoaders
 };
