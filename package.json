@@ -1,6 +1,6 @@
 {
   "name": "firefly-cli",
-  "version": "0.0.2",
+  "version": "1.0.1",
   "main": "index.js",
   "bin": {
     "firefly-build": "bin/firefly-builder.js"

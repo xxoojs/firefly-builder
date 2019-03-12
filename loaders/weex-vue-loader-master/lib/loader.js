@@ -9,12 +9,24 @@ var loaderUtils = require('loader-utils')
 var assign = require('object-assign')
 var parse = require('./parser')
 var path = require('path')
+var fs = require('fs')
 var normalize = require('./normalize')
 var genId = require('./gen-id')
 
-const theme = require(path.join(process.cwd(), './theme.js'))
-console.log('theme：');
-console.log(theme);
+// 一期改造 支持sass theme配置
+let themePath = path.join(process.cwd(), './src/theme.js');
+let theme = null;
+if(fs.existsSync(themePath)){
+  theme = require(themePath);
+}
+// 二期改造 支持mixin
+let mixinPath = path.join(process.cwd(), './src/mixin.js');
+let mixin = null;
+if(fs.existsSync(mixinPath)){
+  mixin = require(mixinPath);
+}
+// 等三期改造
+// const util = require(path.join(process.cwd(), './src/until/index.js'));
 
 // internal lib loaders
 var selectorPath = normalize.lib('selector')
@@ -87,6 +99,7 @@ module.exports = function (content) {
       options: { appendTsSuffixTo: [/\.vue$/] }
     }],
     coffee:['coffee-loader'],
+    // 一期改造 支持sass theme配置
     scss: [{
       loader: 'sass-loader',
       options: {
@@ -196,7 +209,7 @@ module.exports = function (content) {
         if (lang && Array.isArray(loaders[lang])) {
           loader += '!' + stringifyLoaders(loaders[lang])
         }
-        console.log(loader);
+        // console.log(loader);
       }
       if (type === 'template') {
         if (hasRecyclable(part)) {
@@ -436,9 +449,29 @@ module.exports = function (content) {
   }
 
   if (params && params.entry) {
+    // 二期改造 支持mixin
+    let mixins = []; 
+    if(mixin){
+      for(let prop in mixin){
+        mixins.push([prop, mixin[prop]].join(':'));
+      }
+    }
+    // 等三期改造 支持Vue.use(utils)
+    // let utils = [];
+    // if(util){
+    //   for(let prop in util){
+    //     utils.push([prop, util[prop]].join(':'));
+    //   }
+    // }
     output += 'module.exports.el = \'' + params.entry + '\'\n' +
+      // 二期改造 支持mixin
+      'Vue.mixin(' + ['{', mixins.join(','), '}'].join('') + ')\n'+
+      // 等三期改造 支持Vue.use(utils)
+      // 'Vue.use(' + ['{', utils.join(','), '}'].join('') + ')\n'+
       'new Vue(module.exports)\n'
   }
+
+  // console.log(output);
 
   // done
   return output

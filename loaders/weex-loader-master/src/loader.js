@@ -124,7 +124,7 @@ function getLoaderString (type, config) {
       })
     }
 
-    console.log(loaders)
+    // console.log(loaders)
 
     return stringifyLoaders(loaders)
   }
@@ -199,11 +199,11 @@ function loader (source) {
   this.cacheable && this.cacheable()
     // Support *.vue files.
     // If file extname is vue then go to `weex-vue-loader`.
-  console.log('--------before vue loader')
+  // console.log('--------before vue loader')
   if (path.extname(this.resourcePath).match(/\.vue/)) {
     return vueLoader.call(this, source)
   }
-  console.log('--------after vue loader')
+  // console.log('--------after vue loader')
   const options = this._compiler.options.weex || {}
   const customLang = options.lang || {}
   const loaderQuery = loaderUtils.getOptions(this) || {}
@@ -216,7 +216,7 @@ function loader (source) {
   let output = ''
   const frag = parseFragment(source)
   const elementNames = []
-  console.log(resourceQuery)
+  // console.log(resourceQuery)
   if (frag.element.length) {
     for (let i = 0; i < frag.element.length; i++) {
       const element = frag.element[i]

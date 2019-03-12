@@ -131,6 +131,11 @@ class WeexBuilder extends WebpackBuilder {
         */
         plugins: plugins
       };
+      // if (this.options.min) {
+      //   configs.optimization = {
+      //     minimizer: [new UglifyJsPlugin()]
+      //   };
+      // }
       if (this.options.web) {
         configs.module.rules.push({
           test: /\.vue(\?[^?]+)?$/,

@@ -42,8 +42,8 @@ export function parseFragment (source) {
     locationInfo: true
   })
 
-  console.log('节点啊节点啊节点啊节点啊')
-  console.log(fragment)
+  // console.log('节点啊节点啊节点啊节点啊')
+  // console.log(fragment)
 
   const output = {
     deps: [],

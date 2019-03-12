@@ -154,10 +154,10 @@ export function splitSourceLine (source) {
 }
 
 export function printSourceWithLine (source) {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+  // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
   source = splitSourceLine(source)
     .map((input, line) => {
       console.log(line + 1 + ':', input)
     })
-  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+  // console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 }
